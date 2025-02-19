@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { storage } from '../mmkvInstance'
+import { Platform } from 'react-native'
 
-const apiURL =  'http://localhost:8000/api/users'
+const apiURL = Platform.OS === 'android' ? 'http://10.0.2.2:8000/api/users':'http://localhost:8000/api/users'
+
 
 //making a new instance of axios with custom configs
 const instance = axios.create({
