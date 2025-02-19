@@ -1,6 +1,9 @@
 import { MMKV } from 'react-native-mmkv';
 
-export const mmkvInstance = new MMKV();
+export const mmkvInstance = new MMKV({
+    id: 'secureStorage',
+    encryptionKey: 'securelolz'
+});
 
 // Helper functions
 export const storage = {

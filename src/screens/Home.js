@@ -1,10 +1,10 @@
 import React, {useState, useEffect, lazy, Suspense} from 'react'
-import { StyleSheet, View, Text, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, Button } from 'react-native'
 import {storage} from '../mmkvInstance'
 
 const ProfileComponent = lazy (() => import ('../components/Profile'))
 
-const Home = () => {
+const Home = ({navigation}) => {
     const [userName, setUserName] = useState('');
     const [userAge, setUserAge] = useState(null);
     const [speed, setSpeed] = useState(null);
@@ -30,7 +30,7 @@ const Home = () => {
             <Text>
                 speed boolean from storage, fast? {speed ? 'Yes' : 'No'}
             </Text>
-
+            <Button title="Go to Signup" onPress={()=> navigation.navigate('SignupScreen')}></Button>
             
             <Suspense fallback = {<ActivityIndicator></ActivityIndicator>}>
                 <ProfileComponent></ProfileComponent>

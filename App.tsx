@@ -10,16 +10,33 @@ import {
 } from 'react-native';
 
 import Home from './src/screens/Home';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import InfoScreen from './src/screens/InfoScreen';
+import SignupScreen from './src/screens/SignupScreen';
+import { Provider } from 'react-redux';
+import store from './src/store/store';
+
+const Stack = createNativeStackNavigator()
 
 
- 
+
 function App(): React.JSX.Element {
 
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Home/>
+    <Provider store = {store}>
+    <SafeAreaView style={{flex:1}}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name="Home" component={Home}/>
+        <Stack.Screen name="SignupScreen" component={SignupScreen}/>
+        <Stack.Screen name="InfoScreen" component={InfoScreen}/>
+      </Stack.Navigator>
+    </NavigationContainer>
     </SafeAreaView>
+    </Provider>
   );
 }
 
