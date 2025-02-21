@@ -1,26 +1,34 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, ActivityIndicator} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserRequest } from "../store/userSlice";
+import { storage } from "../mmkvInstance";
 
 
 const InfoScreen = ({navigation}) => {
-
-    const {loading, error, token, user} = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [token, setToken] = useState(null)
 
-    useEffect(()=>{
-        if(token){
+    handleFetchUser = () => {
+        const storedToken = storage.getString('authToken')
+        if(storedToken){
+            setToken(storedToken)
             dispatch(fetchUserRequest(token))
         }
-    }, [token])
-
+        
+        setName(storage.getString('user'))
+        setEmail(storage.getString('email'))
+        console.log("this is INfoScnree",(storage.getString('email')))
+    }
 
 
     return(
         <View style={{alignSelf: 'center', justifyContent:'center'}}>
-            <Text>Name: {user.name}</Text>
-            <Text>Email: {user.email}</Text>
+            <Button title = "Fetch user info" onPress={handleFetchUser}></Button>
+            <Text>Name: {name || "N/A"}</Text>
+            <Text>Email: {email || "N/A"}</Text>
             <Text>Auth Token: {token}</Text>
         </View>
     )

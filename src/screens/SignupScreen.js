@@ -7,17 +7,13 @@ const SignupScreen = ({navigation}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const {loading, error, token} = useSelector((state) => state.user)
+    const {loading, error} = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        if(token){
-            navigation.navigate('InfoScreen')
-        }
-    }, [token])
 
     const handleSignup = () =>{
         dispatch(registerRequest({name, email, password}))
+        navigation.navigate('InfoScreen')
     }
 
 

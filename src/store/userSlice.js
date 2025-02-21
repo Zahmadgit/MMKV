@@ -3,7 +3,6 @@ import { storage } from "../mmkvInstance";
 
 const initialState = {
     user: null,
-    token: storage.getString('authToken') || null,
     loading: false,
     error: null
 }
@@ -19,8 +18,6 @@ const userSlice = createSlice({
         registerSuccess:(state, action)=>{
             state.loading = false
             state.user = action.payload.user
-            state.token = action.payload.token
-            storage.set('authToekn', action.payload.token)
         },
         registerFailure:(state, action)=>{
             state.loading=false
