@@ -2,36 +2,42 @@ import axios from 'axios'
 import { storage } from '../mmkvInstance'
 import { Platform } from 'react-native'
 
-const apiURL = Platform.OS === 'android' ? 'http://10.0.2.2:8000/api/users':'http://localhost:8000/api/users'
+const apiURL = Platform.OS === 'android' ? 'http://10.0.2.2:8000/api' : 'http://localhost:8000/api';
 
-
-//making a new instance of axios with custom configs
 const instance = axios.create({
     baseURL: apiURL
-})
+});
 
 instance.interceptors.request.use(
-    //mmkv is fully synchronous so we dont need async
-    //mmkv encryption might not work in android
-    (config) =>{
-        const token = storage.getString('authToken')
-        if(token){
-            config.headers.Authorization = `Bearer ${token}`
-        }  
-        return config
-        
+    (config) => {
+        const token = storage.getString('authTokenLogin'); 
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
     },
     (error) => Promise.reject(error)
-)
+);
 
+export const registerUser = async (userData) => {
+    const response = await instance.post('/users/', userData);
+    return response.data;
+};
 
-export const registerUser = async(userData)=>{
-    const responce = await instance.post('/', userData)
-    return responce.data
-}
+export const loginUser = async (userData) => {
+    const response = await instance.post('/users/login/', userData);
+    console.log('LoginUser inside userApi');
+    return response.data;
+};
 
+export const createGoal = async (goalData) => {
+    const response = await instance.post('/goals/', goalData);
+    console.log('createGoal inside userApi', response.data);
+    return response.data.createdGoal;
+};
 
-export const getUserInfo = async()=>{
-    const responce = await instance.get('/')
-    return responce.data
-}
+export const fetchGoals = async () => {
+    const response = await instance.get('/goals/');
+    console.log('fetchGoals inside userApi', response.data);
+    return response.data.data;
+};

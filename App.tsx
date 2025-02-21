@@ -17,6 +17,8 @@ import InfoScreen from './src/screens/InfoScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import { Provider } from 'react-redux';
 import store from './src/store/store';
+import LoginScreen from './src/screens/LoginScreen';
+import GoalScreen from './src/screens/GoalScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -33,6 +35,8 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="SignupScreen" component={SignupScreen}/>
         <Stack.Screen name="InfoScreen" component={InfoScreen}/>
+        <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+        <Stack.Screen name="GoalScreen" component={GoalScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
     </SafeAreaView>

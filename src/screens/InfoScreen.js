@@ -24,12 +24,16 @@ const InfoScreen = ({navigation}) => {
     }
 
 
+
+
     return(
         <View style={{alignSelf: 'center', justifyContent:'center'}}>
             <Button title = "Fetch user info" onPress={handleFetchUser}></Button>
             <Text>Name: {name || "N/A"}</Text>
             <Text>Email: {email || "N/A"}</Text>
             <Text>Auth Token: {token}</Text>
+            <Button title="Go to Login" onPress={()=> navigation.navigate('LoginScreen')}></Button>
+            
         </View>
     )
 }
