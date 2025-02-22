@@ -42,3 +42,16 @@ export const fetchGoals = async () => {
     console.log('fetchGoals inside userApi', response.data);
     return response.data.data;
 };
+
+export const updateGoal = async(goalId, goalData)=>{
+    const response = await instance.put(`/goals/${goalId}`, goalData);
+    console.log('updateGoal inside userApi', response.data)
+    return response.data.updateGoal;
+
+};
+
+export const deleteGoal = async(goalId)=>{
+    const response = await instance.delete(`/goals/${goalId}`);
+    return response.data;
+
+};

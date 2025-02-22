@@ -68,6 +68,38 @@ const userSlice = createSlice({
             state.error = null;
             storage.delete('authTokenLogin');
         },
+        updateGoalRequest: (state) =>{
+            state.loading = true;
+            state.error = null;
+        },
+        updateGoalSuccess: (state, action) => {
+            state.loading = false;
+            console.log('Reducer payload:', action.payload); // Add this log
+            if (action.payload) {
+                state.goals = state.goals.map(goal => 
+                    goal._id === action.payload._id ? action.payload : goal
+                );
+            }
+        },
+        updateGoalFailure: (state, action) =>{
+            state.loading = false;
+            state.error = action.payload;
+        },
+        deleteGoalRequest: (state) =>{
+            state.loading = true;
+            state.error = null;
+        },
+        deleteGoalSuccess: (state, action) =>{
+            state.loading = false;
+            state.goals = state.goals.filter(
+                goal => goal._id !== action.payload.id 
+            );
+        },
+        deleteGoalFailure: (state, action) =>{
+            state.loading = false;
+            state.error = action.payload;
+        },
+    
     }
 });
 
@@ -75,7 +107,9 @@ export const {
     registerFailure, registerRequest, registerSuccess,
     loginFailure, loginRequest, loginSuccess,
     createGoalFailure, createGoalSuccess, createGoalRequest,
-    fetchGoalsFailure, fetchGoalsRequest, fetchGoalsSuccess, logout
+    fetchGoalsFailure, fetchGoalsRequest, fetchGoalsSuccess, logout,
+    updateGoalFailure, updateGoalRequest, updateGoalSuccess,
+    deleteGoalFailure, deleteGoalRequest, deleteGoalSuccess
 } = userSlice.actions;
 
 export default userSlice.reducer;

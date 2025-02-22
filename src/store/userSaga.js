@@ -1,9 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { registerUser, getUserInfo, loginUser, createGoal, fetchGoals } from "../services/userApi";
+import { registerUser, getUserInfo, loginUser, createGoal, fetchGoals, updateGoal, deleteGoal } from "../services/userApi";
 import { registerFailure, registerSuccess, registerRequest,
     loginFailure, loginRequest, loginSuccess,
     createGoalFailure, createGoalRequest, createGoalSuccess, 
-    fetchGoalsFailure, fetchGoalsRequest, fetchGoalsSuccess
+    fetchGoalsFailure, fetchGoalsRequest, fetchGoalsSuccess,
+    updateGoalFailure, updateGoalRequest, updateGoalSuccess,
+    deleteGoalFailure, deleteGoalRequest, deleteGoalSuccess
 } from "./userSlice";
 import { storage } from "../mmkvInstance";
 
@@ -49,9 +51,33 @@ function* handleFetchGoals() {
     }
 }
 
+function* handleUpdateGoal(action) {
+    try {
+        const {goalId, title} = action.payload;
+        const updatedGoal = yield call(updateGoal, goalId, {title});
+        console.log('handleUpdateGoal inside userSaga');
+        yield put(updateGoalSuccess(updatedGoal));
+        yield put(fetchGoalsRequest())
+    } catch (error) {
+        yield put(updateGoalFailure(error.message));
+    }
+}
+
+function* handleDeleteGoal(action) {
+    try {
+        const response = yield call(deleteGoal, action.payload);
+        yield put(deleteGoalSuccess(response));
+        console.log('handleDeleteGoal inside userSaga');
+    } catch (error) {
+        yield put(deleteGoalFailure(error.message));
+    }
+}
+
 export function* userSaga() {
     yield takeLatest(registerRequest.type, handleRegister);
     yield takeLatest(loginRequest.type, handleLoginUser);
     yield takeLatest(createGoalRequest.type, handleCreateGoal);
     yield takeLatest(fetchGoalsRequest.type, handleFetchGoals);
+    yield takeLatest(updateGoalRequest.type, handleUpdateGoal);
+    yield takeLatest(deleteGoalRequest.type, handleDeleteGoal);
 }
