@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, FlatList } from "react-native";
+import { View, Text, TextInput, Button, FlatList, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGoalsRequest, createGoalRequest, logout } from "../store/userSlice";
 
@@ -10,10 +10,10 @@ const GoalScreen = ({navigation}) => {
     const [goalTitle, setGoalTitle] = useState("");
 
     useEffect(() => {
-        if (goals) {
+         Alert.alert('goals fitched')
             dispatch(fetchGoalsRequest());
-        }
-    }, [goals]);
+        
+    }, []);
 
     const handleAddGoal = () => {
         if (goalTitle.trim()) {

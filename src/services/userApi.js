@@ -7,10 +7,11 @@ const apiURL = Platform.OS === 'android' ? 'http://10.0.2.2:8000/api' : 'http://
 const instance = axios.create({
     baseURL: apiURL
 });
-
+//🤣🤣🤣🤣
 instance.interceptors.request.use(
     (config) => {
         const token = storage.getString('authTokenLogin'); 
+        console.log(token)
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerRequest } from "../store/userSlice";
 
@@ -20,13 +20,19 @@ const SignupScreen = ({navigation}) => {
     return(
         <View style={{alignSelf: 'center', justifyContent:'center'}}>
             <Text>Signup</Text>
-            <TextInput placeholder="enter name" value={name} onChangeText={setName} ></TextInput>
-            <TextInput placeholder="enter email" value={email} onChangeText={setEmail} ></TextInput>
-            <TextInput placeholder="enter password" value={password} onChangeText={setPassword} secureTextEntry></TextInput>
+            <TextInput placeholder="enter name" value={name} onChangeText={setName} style={styles.textContainer}></TextInput>
+            <TextInput placeholder="enter email" value={email} onChangeText={setEmail} style={styles.textContainer}></TextInput>
+            <TextInput placeholder="enter password" value={password} onChangeText={setPassword} secureTextEntry style={styles.textContainer}></TextInput>
             <Button title = "Sign up" onPress={handleSignup}></Button>
 
         </View>
     )
 }
 
+
+const styles = StyleSheet.create({
+    textContainer:{
+        borderWidth: 1
+    }
+})
 export default SignupScreen
