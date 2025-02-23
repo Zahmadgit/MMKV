@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+import './src/localization/i18n'
+
 import Home from './src/screens/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';

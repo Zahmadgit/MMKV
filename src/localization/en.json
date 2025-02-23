@@ -1,0 +1,7 @@
+{
+    "login": {
+      "emailPlaceholder": "Enter email",
+      "passwordPlaceholder": "Enter password",
+      "loginButton": "Login"
+    }
+}

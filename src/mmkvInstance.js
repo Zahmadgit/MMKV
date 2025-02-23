@@ -18,4 +18,6 @@ export const storage = {
         return jsonString ? JSON.parse(jsonString) : null;
     },
     delete: (key) => mmkvInstance.delete(key),
+    setLanguage: (lang) => mmkvInstance.set('user_language', lang),
+    getLanguage: () => mmkvInstance.getString('user_language') || 'en', 
 };

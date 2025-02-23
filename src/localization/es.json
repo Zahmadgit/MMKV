@@ -1,0 +1,7 @@
+{
+    "login": {
+      "emailPlaceholder": "Ingrese correo electrónico",
+      "passwordPlaceholder": "Ingrese contraseña",
+      "loginButton": "Iniciar sesión"
+    }
+}
